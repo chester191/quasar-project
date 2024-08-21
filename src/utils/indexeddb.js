@@ -1,3 +1,5 @@
+import users from './users.json'
+
 const dbName = 'UserDatabase'
 const dbVersion = 1
 const storeName = 'users'
@@ -51,18 +53,23 @@ const initializeDatabase = async () => {
 
     countRequest.onsuccess = async () => {
       const recordCount = countRequest.result
-      if (recordCount === 0) {
-        // Populate the database if it's empty
-        const response = await fetch('/src/assets/users.json')
-        const users = await response.json()
 
+      if (recordCount === 0) {
+        // Use imported JSON data
+        console.log('Imported users:', users)
+
+        // Populate IndexedDB
         const populateTransaction = db.transaction(storeName, 'readwrite')
         const populateObjectStore = populateTransaction.objectStore(storeName)
 
         users.forEach(user => {
           const serializedUser = serialize(user)
-          populateObjectStore.add(serializedUser)
+          const request = populateObjectStore.add(serializedUser)
+          request.onsuccess = () => console.log('User added:', user)
+          request.onerror = () => console.error('Error adding user:', request.error)
         })
+
+        console.log('Database populated with initial data.')
       }
     }
 

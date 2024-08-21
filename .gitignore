@@ -31,3 +31,6 @@ yarn-error.log*
 
 # local .env files
 .env.local*
+.vercel
+.firebase/hosting.ZGlzdA.cache
+.firebase/hosting.ZGlzdC9zcGE.cache
