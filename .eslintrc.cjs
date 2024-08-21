@@ -4,8 +4,12 @@ module.exports = {
   // Remove this if you have an higher level ESLint config file (it usually happens into a monorepos)
   root: true,
 
+  // parser: '@babel/eslint-parser',
+  // parser: "babel-eslint",
   parserOptions: {
-    ecmaVersion: 2021, // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 2022,
+    sourceType: 'module',
+    requireConfigFile: false,
   },
 
   env: {
@@ -62,7 +66,7 @@ module.exports = {
 
     'import/first': 'off',
     'import/named': 'error',
-    'import/namespace': 'error',
+    'import/namespace': 'off',
     'import/default': 'error',
     'import/export': 'error',
     'import/extensions': 'off',
